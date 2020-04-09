@@ -8,4 +8,4 @@ COPY ${TOOLS_PATH}/* ./
 
 COPY ./entrypoint.sh /
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
