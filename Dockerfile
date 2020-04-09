@@ -1,11 +1,11 @@
 FROM ubuntu:14.04
 
-ARG PATH
+ARG TOOLS_PATH
 
 WORKDIR /app
 
-COPY $PATH/* .
+COPY ${TOOLS_PATH}/* ./
 
 COPY ./entrypoint.sh /
 
-ENTRYPOINT ["entrypoint.sh"]                                                                                                                                                                                                ➜  services git:(master) 
+ENTRYPOINT ["entrypoint.sh"]
