@@ -69,6 +69,7 @@ function _load_build_path () {
         echo "Invalid path: $BUILD_PATH"
         exit 1
     fi
+    BUILD_PATH=$(realpath $BUILD_PATH)
 }
 
 function extract () {
