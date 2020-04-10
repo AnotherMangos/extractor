@@ -131,6 +131,7 @@ function help () {
         extract)
             echo "Usage: $0 extract [-p MOUNTED_MAP]" &&\
             echo "Extract will start a map extraction process in the MOUNTED_PATH (default: /mnt)" &&\
+            echo "The resulting extracts will be put in the 'extracts' folder" &&\
             echo 'Exemple: docker run -ti --rm -v `realpath .`:/mnt amangos/classic-extractor extract' &&\
             exit 0
             ;;
