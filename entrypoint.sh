@@ -56,49 +56,6 @@ function _available-methods () {
     exit 0
 }
 
-function _load_build_path () {
-    BUILD_PATH="/mnt"
-
-    if [ "$OPTS_PATH" != "" ]
-    then
-        BUILD_PATH="$OPTS_PATH"
-    fi
-
-    if [ ! -d "$BUILD_PATH" ]
-    then
-        echo "Invalid path: $BUILD_PATH"
-        exit 1
-    fi
-    BUILD_PATH=$(realpath $BUILD_PATH)
-}
-
-function extract () {
-    _load_build_path
-    cp /app/* $BUILD_PATH &&\
-	files=`ls /app` &&\
-    cd $BUILD_PATH &&\
-    chmod 755 ./ExtractResources.sh &&\
-    (./ExtractResources.sh ; rm $files) &&\
-    mkdir extracts &&\
-	mv $BUILD_PATH/maps/ ./extracts/ &&\
-	mv $BUILD_PATH/vmaps/ ./extracts/ &&\
-	mv $BUILD_PATH/mmaps/ ./extracts/ &&\
-	mv $BUILD_PATH/dbc/ ./extracts/ &&\
-    echo "Extraction complete !" || \
-    echo "Extraction error ! Look at the 'help' method or open an issue for more information."
-    exit 0
-}
-
-function help () {
-    case $1 in
-        *)
-            echo "Usage: $0 help METHOD"
-            exit 0
-            ;;
-    esac
-    exit 0
-}
-
 # Dispatches CLI Methods
 function _handle () {
     METHOD=$(_available-methods 2>/dev/null | grep -Eoh "^${1}\$")
@@ -135,8 +92,48 @@ function _catchall () {
     exit 0
 }
 
+
+function _load_build_path () {
+    BUILD_PATH="/mnt"
+
+    if [ "$OPTS_PATH" != "" ]
+    then
+        BUILD_PATH="$OPTS_PATH"
+    fi
+
+    if [ ! -d "$BUILD_PATH" ]
+    then
+        echo "Invalid path: $BUILD_PATH"
+        exit 1
+    fi
+    BUILD_PATH=$(realpath $BUILD_PATH)
+}
+
+function extract () {
+    _load_build_path
+    cp /app/* $BUILD_PATH &&\
+	files=`ls /app` &&\
+    cd $BUILD_PATH &&\
+    chmod 755 ./ExtractResources.sh &&\
+    (./ExtractResources.sh ; rm $files) &&\
+    mkdir extracts &&\
+	mv $BUILD_PATH/maps/ ./extracts/ &&\
+	mv $BUILD_PATH/vmaps/ ./extracts/ &&\
+	mv $BUILD_PATH/mmaps/ ./extracts/ &&\
+	mv $BUILD_PATH/dbc/ ./extracts/ &&\
+    echo "Extraction complete !" || \
+    echo "Extraction error ! Look at the 'help' method or open an issue for more information."
+    exit 0
+}
+
 function help () {
     case $1 in
+        extract)
+            echo "Usage: $0 extract [-p MOUNTED_MAP]" &&\
+            echo "Extract will start a map extraction process in the MOUNTED_PATH (default: /mnt)" &&\
+            echo 'Exemple: docker run -ti --rm -v `realpath .`:/mnt amangos/classic-extractor extract' &&\
+            exit 0
+            ;;
         *)
             echo "Usage: $0 help METHOD"
             exit 0
