@@ -12,7 +12,7 @@ To extract maps of you client use the following commands
 
 ```
 $ cd wow-client
-$ docker run -ti --rm -v `realpath .`:/mnt amangos/$EXTENSION-extractor extract
+$ docker run -ti --rm -v `realpath .`:/mnt amangos/extractor-$EXTENSION extract
 ```
 
 The results will be put in the `./extracts` folder
