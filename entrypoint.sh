@@ -19,7 +19,7 @@
 # @license: GNU v3
 # @date: March 12, 2016
 ##
-SCRIPT_NAME="builder"
+SCRIPT_NAME="extractor"
 SCRIPT_FILE="${0}"
 SCRIPT_VER="1.0"
 SCRIPT_OPTS=("(-p|--path):PATH")
